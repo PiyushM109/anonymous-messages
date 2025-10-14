@@ -1,25 +1,63 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { signUpSchema } from "@/schemas/signUpSchema";
+import axios, { AxiosError } from "axios";
+import { ApiResponse } from "@/types/apiResponse";
 
-export default function Component() {
-  const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
+function page() {
+  const [username, setUsername] = useState("");
+  const [usernameMessage, setUsernameMessage] = useState("");
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const debouncedUsername = useDebounceValue(username, 500);
+
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  useEffect(() => {
+    const checkUsernameUnque = async () => {
+      if (debouncedUsername) {
+        setIsCheckingUsername(true);
+        setUsernameMessage("");
+        try {
+          const response = await axios.get(
+            `/api/check-username?username=${debouncedUsername}`
+          );
+          setUsernameMessage(response.data.message);
+        } catch (error) {
+          console.log(error);
+          const axiosError = error as AxiosError<ApiResponse>;
+          setUsernameMessage(
+            axiosError.response?.data.message ??
+              "Error checking usernmae avialability"
+          );
+        } finally {
+          setIsCheckingUsername(false);
+        }
+      }
+    };
+    checkUsernameUnque();
+  }, [debouncedUsername]);
+
+
+  const onSubmit = async(data)=>{
+
   }
-  return (
-    <>
-      Not signed in <br />
-      <button
-        className="bg-orange-500 px-3 py-1 m-4 rounded"
-        onClick={() => signIn()}
-      >
-        Sign in
-      </button>
-    </>
-  );
+  return <div>page</div>;
 }
+
+export default page;
