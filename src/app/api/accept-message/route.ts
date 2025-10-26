@@ -64,6 +64,7 @@ export async function GET(request: Request) {
         {
           success: false,
           message: "Not authenticated",
+          isAcceptingMessage: false,
         },
         { status: 401 }
       );
@@ -76,6 +77,7 @@ export async function GET(request: Request) {
         {
           success: false,
           message: "User not found",
+          isAcceptingMessage: false,
         },
         { status: 404 }
       );
@@ -83,7 +85,7 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: true,
-        isAcceptingMessages: foundUser.isAcceptingMessage,
+        isAcceptingMessage: foundUser.isAcceptingMessage,
       },
       { status: 200 }
     );
@@ -92,6 +94,7 @@ export async function GET(request: Request) {
       {
         success: false,
         message: "Internal server error",
+        isAcceptingMessage: false,
       },
       { status: 500 }
     );
