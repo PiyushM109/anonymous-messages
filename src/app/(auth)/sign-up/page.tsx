@@ -49,7 +49,6 @@ function page() {
           const response = await axios.get(
             `/api/check-username?username=${username}`
           );
-          cons
           setUsernameMessage(response.data.message);
         } catch (error) {
           console.log(error);
