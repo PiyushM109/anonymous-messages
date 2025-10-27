@@ -51,11 +51,11 @@ function page() {
           );
           setUsernameMessage(response.data.message);
         } catch (error) {
-          console.log(error);
+          console.log({ error });
           const axiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(
             axiosError.response?.data.message ??
-              "Error checking usernmae avialability"
+              "Error checking username avialability"
           );
         } finally {
           setIsCheckingUsername(false);
@@ -82,8 +82,8 @@ function page() {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center min-h-screen bg-background">
+      <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-lg shadow-lg">
         <div className="text-center ">
           <h1 className="text-2xl font-bold tracking-tight mb-6">
             Join Anonymous Message
@@ -110,7 +110,7 @@ function page() {
                   </FormControl>
                   {isCheckingUsername && <Loader2 className="animate-spin" />}
                   <p
-                    className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}
+                    className={`text-sm ${usernameMessage === "Username available" ? "text-green-500" : "text-red-500"}`}
                   >
                     {usernameMessage}
                   </p>
@@ -158,7 +158,7 @@ function page() {
         <div className="text-center mt-4">
           <p>
             Already a member?{" "}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-in" className="text-primary hover:text-blue-800">
               SignIn
             </Link>
           </p>

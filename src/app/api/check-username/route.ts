@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     const queryParam = {
       username: searchParams.get("username"),
     };
-
+    console.log({ queryParam });
     const result = UsernameQuerySchema.safeParse(queryParam);
 
     if (!result.success) {

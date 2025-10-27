@@ -49,8 +49,8 @@ function Page() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center min-h-screen bg-background">
+      <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-lg shadow-lg">
         <div className="text-center">
           <h1 className="text-2xl font-extrabold tracking-tight  mb-6">
             Join Anonymous Message
@@ -99,7 +99,7 @@ function Page() {
         <div className="text-center mt-4">
           <p>
             Already a member?{" "}
-            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-up" className="text-primary hover:text-blue-800">
               Sign Up
             </Link>
           </p>
