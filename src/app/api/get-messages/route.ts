@@ -11,11 +11,11 @@ export async function GET(request: Request) {
   try {
     const session = await getServerSession(authOptions);
     const user: User = session?.user as User;
-    if (!session || session.user) {
+    if (!session || !session.user) {
       return Response.json(
         {
           success: false,
-          message: " Not Authenticated",
+          message: "Not Authenticated",
         },
         { status: 401 }
       );
@@ -23,11 +23,12 @@ export async function GET(request: Request) {
     const userId = new mongoose.Types.ObjectId(user._id);
 
     const userMessages = await UserModel.aggregate([
-      { $match: { id: userId } },
+      { $match: { _id: userId } },
       { $unwind: "$messages" },
       { $sort: { "messages.createdAt": -1 } },
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
+    console.log(userMessages);
     if (!userMessages || userMessages.length == 0) {
       return Response.json(
         {

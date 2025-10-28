@@ -37,6 +37,7 @@ function page() {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-message");
+
       const isAccepting = response?.data?.isAcceptingMessage || false;
       setValue("acceptMessages", isAccepting);
     } catch (error) {
@@ -57,6 +58,7 @@ function page() {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>("/api/get-messages");
+        console.log({ response });
         setMessages(response.data.messages || []);
         if (refresh) {
           toast("Showing latest messages");
@@ -97,6 +99,7 @@ function page() {
       );
     }
   };
+  console.log({ session });
   const { username } = session?.user as User;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -109,7 +112,7 @@ function page() {
     return <div> Please login</div>;
   }
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full mx-w-6xl">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 rounded w-full mx-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
@@ -151,7 +154,7 @@ function page() {
           <RefreshCcw className="h-4 e-4" />
         )}
       </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         {messages && messages?.length > 0 ? (
           messages?.map((message, index) => (
             <MessageCard

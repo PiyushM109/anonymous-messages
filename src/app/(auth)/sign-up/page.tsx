@@ -82,7 +82,7 @@ function page() {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-background">
+    <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-8 bg-card rounded-lg shadow-lg">
         <div className="text-center ">
           <h1 className="text-2xl font-bold tracking-tight mb-6">

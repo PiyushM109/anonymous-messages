@@ -18,7 +18,7 @@ import messages from "@/messages.json";
 
 const page = () => {
   return (
-    <main className="flex flex-grow flex-col items-center justify-center px-4 md:px-24 py-12">
+    <main className="flex flex-grow flex-col items-center justify-center px-4 md:px-24 py-12  text-foreground">
       <section className="text-center mb-8 md:mb-12">
         <h1 className="text-2xl md;text-5xl font-bold">
           Get conversation started anonymously
