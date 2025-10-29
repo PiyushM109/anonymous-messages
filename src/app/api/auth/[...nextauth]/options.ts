@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
           type: "password",
         },
       },
-      async authorize(credentials: any, req): Promise<any> {
+      async authorize(credentials: any): Promise<any> {
         await dbConnect();
         try {
           const existingUser = await UserModel.findOne({

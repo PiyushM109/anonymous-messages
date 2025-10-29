@@ -126,7 +126,7 @@ const Page = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-lg font-medium leading-relaxed">
-                  "{message.content}"
+                  {message.content}
                 </p>
               </CardContent>
             </Card>

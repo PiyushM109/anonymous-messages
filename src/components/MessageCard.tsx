@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +17,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { Message } from "@/model/User";
 import { toast } from "sonner";
@@ -33,7 +31,7 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
     const response = await axios.delete<ApiResponse>(
       `/api/delete-message/${message._id}`
     );
-    
+
     toast(response.data.message);
     onMessageDelete(`${message._id}`);
   };

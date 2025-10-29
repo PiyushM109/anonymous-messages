@@ -34,7 +34,7 @@ function SendMessagePage() {
     resolver: zodResolver(MessageSchema),
   });
 
-  const messageContent = form.watch("content");
+  form.watch("content");
 
   const fetchAcceptingMessagesStatus = useCallback(async () => {
     setIsCheckingAcceptingMessages(true);

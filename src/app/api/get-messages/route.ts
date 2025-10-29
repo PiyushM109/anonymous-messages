@@ -2,11 +2,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import { User } from "next-auth";
-import { success } from "zod";
 import UserModel from "@/model/User";
 import mongoose from "mongoose";
 
-export async function GET(request: Request) {
+export async function GET() {
   await dbConnect();
   try {
     const session = await getServerSession(authOptions);
@@ -46,6 +45,7 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     Response.json(
       {
         success: false,

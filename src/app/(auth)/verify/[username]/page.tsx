@@ -2,7 +2,7 @@
 import { ApiResponse } from "@/types/apiResponse";
 import axios, { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { verifySchema } from "@/schemas/verifySchema";

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDebounceValue, useDebounceCallback } from "usehooks-ts";
+import { useDebounceCallback } from "usehooks-ts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { signUpSchema } from "@/schemas/signUpSchema";
@@ -16,14 +16,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription,
   FormControl,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-function page() {
+function SignUpPage() {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
@@ -168,4 +167,4 @@ function page() {
   );
 }
 
-export default page;
+export default SignUpPage;

@@ -2,9 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import { User } from "next-auth";
-import { success } from "zod";
 import UserModel from "@/model/User";
-import mongoose from "mongoose";
 
 export async function DELETE(
   request: Request,
@@ -48,6 +46,7 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     Response.json(
       {
         success: false,

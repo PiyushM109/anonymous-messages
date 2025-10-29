@@ -14,13 +14,13 @@ function Navbar() {
   return (
     <nav className="p-4 md:p-6 shadow-md border-b">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <a
+        <Link
           className="flex flex-row text-xl font-bold mb-4 md:mb-0 gap-4"
           href="/"
         >
           <Image src="/globe.svg" width={30} height={30} alt="logo" />
           Anonymous Message
-        </a>
+        </Link>
         {session ? (
           <div className="flex items-center gap-2">
             <span className="mr-2">
