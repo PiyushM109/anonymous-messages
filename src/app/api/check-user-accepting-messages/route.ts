@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        isAcceptingMessages: user.isAcceptingMessage,
+        isAcceptingMessage: user.isAcceptingMessage,
       },
       { status: 200 }
     );

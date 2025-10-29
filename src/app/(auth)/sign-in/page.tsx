@@ -98,7 +98,7 @@ function Page() {
         </Form>
         <div className="text-center mt-4">
           <p>
-            Already a member?{" "}
+            Not registered?{" "}
             <Link href="/sign-up" className="text-primary hover:text-blue-800">
               Sign Up
             </Link>

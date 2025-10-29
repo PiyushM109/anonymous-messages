@@ -87,7 +87,6 @@ function SendMessagePage() {
       </div>
     );
   }
-
   return (
     <div className="flex justify-center items-center min-h-screen ">
       <div className="w-full max-w-md p-8 space-y-8 bg-card text-card-foreground rounded-lg shadow-md">

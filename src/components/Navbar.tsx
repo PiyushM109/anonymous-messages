@@ -16,7 +16,7 @@ function Navbar() {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <a
           className="flex flex-row text-xl font-bold mb-4 md:mb-0 gap-4"
-          href="#"
+          href="/"
         >
           <Image src="/globe.svg" width={30} height={30} alt="logo" />
           Anonymous Message

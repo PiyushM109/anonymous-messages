@@ -35,15 +35,14 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased grid-background`}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-          >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
             {children}
+
             <Toaster />
           </ThemeProvider>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-foreground/5 rounded-full blur-3xl -z-10" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-foreground/5 rounded-full blur-3xl -z-10" />
         </body>
       </AuthProvider>
     </html>

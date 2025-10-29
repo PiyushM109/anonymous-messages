@@ -8,14 +8,16 @@ import mongoose from "mongoose";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { messageId: string } }
+  { params }: { params: Promise<{ messageId: string }> }
 ) {
-  const messageId = params.messageId;
+  console.log({ params });
+  const { messageId } = await params;
+  console.log({ messageId });
   await dbConnect();
   try {
     const session = await getServerSession(authOptions);
     const user: User = session?.user as User;
-    if (!session || session.user) {
+    if (!session || !session.user) {
       return Response.json(
         {
           success: false,
