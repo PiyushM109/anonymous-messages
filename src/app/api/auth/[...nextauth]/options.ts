@@ -1,8 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -19,9 +20,14 @@ export const authOptions: NextAuthOptions = {
           type: "password",
         },
       },
-      async authorize(credentials: any): Promise<any> {
+      async authorize(
+        credentials: Record<string, string> | undefined
+      ): Promise<User | null> {
         await dbConnect();
         try {
+          if (!credentials) {
+            throw new Error("No credentials provided");
+          }
           const existingUser = await UserModel.findOne({
             $or: [
               { email: credentials.identifier },
@@ -29,7 +35,7 @@ export const authOptions: NextAuthOptions = {
             ],
           });
 
-          if (!existingUser) {
+          if (!existingUser || !existingUser._id) {
             throw new Error("No user found with this email");
           }
 
@@ -45,25 +51,40 @@ export const authOptions: NextAuthOptions = {
           if (!isMatch) {
             throw new Error("Password doesn't match");
           }
+          console.log({ existingUser });
+          const user: User = {
+            _id: existingUser._id.toString(),
+            isVerified: existingUser.isVerified,
+            isAcceptingMessage: existingUser.isAcceptingMessage,
+            username: existingUser.username,
+            email: existingUser.email,
+            id: "",
+          };
 
-          return existingUser;
-        } catch (error: any) {
-          throw new Error(error.message || "Authorization failed");
+          return user;
+        } catch (error) {
+          throw new Error("Authorization failed");
         }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }): Promise<JWT> {
       if (user) {
         token._id = user._id?.toString();
         token.isVerified = user.isVerified;
-        token.isAcceptimgMessage = user.isAcceptingMessage;
+        token.isAcceptingMessage = user.isAcceptingMessage;
         token.username = user.username;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }): Promise<Session> {
       if (token) {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;

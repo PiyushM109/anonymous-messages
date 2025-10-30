@@ -19,8 +19,9 @@ export async function GET() {
         { status: 401 }
       );
     }
+    console.log({ user });
     const userId = new mongoose.Types.ObjectId(user._id);
-
+    console.log(userId);
     const userMessages = await UserModel.aggregate([
       { $match: { _id: userId } },
       { $unwind: "$messages" },
