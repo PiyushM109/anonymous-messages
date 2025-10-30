@@ -129,7 +129,7 @@ function Page() {
   }
 
   const { username } = session?.user as User;
-  const profileUrl = `http://localhost:3000/u/${username}`;
+  const profileUrl = `https://anonymous-messages-livid.vercel.app/u/${username}`;
 
   const copyToClipBoard = () => {
     navigator.clipboard.writeText(profileUrl);
